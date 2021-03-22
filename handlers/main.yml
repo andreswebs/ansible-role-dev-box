@@ -1,0 +1,4 @@
+---
+- name: Reboot instance
+  reboot:
+    msg: Maintenance reboot initiated

@@ -1,0 +1,55 @@
+---
+- name: Upgrade system
+  apt:
+    update_cache: yes
+    upgrade: dist
+    autoremove: yes
+    autoclean: yes
+  async: 3600
+  poll: 5
+  tags:
+    - system
+
+- name: Install basic security packages
+  apt:
+    state: present
+    name:
+      - ufw
+      - unattended-upgrades
+      - fail2ban
+      - iptables-persistent
+  tags:
+    - system
+
+- name: Install tools
+  apt:
+    state: present
+    name:
+      - rsync
+      - vim
+      - tmux
+      - htop
+      - curl
+      - git
+      - jq
+      - zip
+      - unzip
+      - python3
+      - python3-pip
+      - python3-virtualenv
+      - bash-completion
+      - apt-transport-https
+      - gnupg2
+      - gnupg-agent
+  tags:
+    - system
+
+# System check
+- name: Check if a reboot is required
+  shell: "[ -f /var/run/reboot-required ]"
+  failed_when: false
+  register: reboot_required
+  changed_when: reboot_required.rc == 0
+  notify: Reboot instance
+  tags:
+    - system
