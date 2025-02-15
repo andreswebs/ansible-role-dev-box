@@ -1,17 +1,17 @@
 ---
-- name: Upgrade system
-  apt:
-    update_cache: yes
+- name: system | Upgrade system
+  ansible.builtin.apt:
+    update_cache: true
     upgrade: dist
-    autoremove: yes
-    autoclean: yes
+    autoremove: true
+    autoclean: true
   async: 3600
   poll: 5
   tags:
     - system
 
-- name: Install basic security packages
-  apt:
+- name: system | Install basic security packages
+  ansible.builtin.apt:
     state: present
     name:
       - ufw
@@ -21,8 +21,8 @@
   tags:
     - system
 
-- name: Install tools
-  apt:
+- name: system | Install tools
+  ansible.builtin.apt:
     state: present
     name:
       - rsync
@@ -45,8 +45,8 @@
     - system
 
 # System check
-- name: Check if a reboot is required
-  shell: "[ -f /var/run/reboot-required ]"
+- name: system | Check if a reboot is required
+  ansible.builtin.shell: "[ -f /var/run/reboot-required ]"
   failed_when: false
   register: reboot_required
   changed_when: reboot_required.rc == 0

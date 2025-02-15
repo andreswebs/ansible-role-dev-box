@@ -1,0 +1,4 @@
+tests/test.yml name[play]
+handlers/main.yml no-changed-when
+tasks/main.yml name[missing]
+tasks/swap.yml no-changed-when

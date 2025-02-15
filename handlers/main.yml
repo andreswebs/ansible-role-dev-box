@@ -1,4 +1,7 @@
 ---
 - name: Reboot instance
-  reboot:
+  ansible.builtin.reboot:
     msg: Maintenance reboot initiated
+
+- name: Load swappiness settings
+  ansible.builtin.command: sysctl -p /etc/sysctl.d/60-swappiness.conf

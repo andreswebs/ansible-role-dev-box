@@ -1,2 +1,25 @@
 ---
+galaxy_info:
+  author: Andre Silva
+  description: Installs a few tools and configures swap for a dev box
+  role_name: dev_box
+  namespace: andreswebs
+
+  license: Unlicense
+
+  min_ansible_version: "2.18"
+
+  github_branch: main
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - dev
+
 dependencies: []

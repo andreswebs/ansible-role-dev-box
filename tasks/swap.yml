@@ -3,15 +3,15 @@
 # https://askubuntu.com/questions/103915/how-do-i-configure-swappiness
 # https://unix.stackexchange.com/questions/23072/how-can-i-check-if-swap-is-active-from-the-command-line
 ---
-- name: Allocate swap file
-  command: fallocate -l 1g /swapfile
+- name: swap | Allocate swap file
+  ansible.builtin.command: fallocate -l 1g /swapfile
   args:
     creates: /swapfile
   tags:
     - swap
 
-- name: Set swap file permissions
-  file:
+- name: swap | Set swap file permissions
+  ansible.builtin.file:
     path: /swapfile
     owner: root
     group: root
@@ -19,21 +19,21 @@
   tags:
     - swap
 
-- name: Check swap file type
-  command: file /swapfile
+- name: swap | Check swap file type
+  ansible.builtin.command: file /swapfile
   register: swapfile
   changed_when: false
   tags:
     - swap
 
-- name: Make swap area if not present
-  command: mkswap /swapfile
+- name: swap | Make swap area if not present
+  ansible.builtin.command: mkswap /swapfile
   when: swapfile.stdout.find('swap file') == -1
   tags:
     - swap
 
-- name: Write swap entry in fstab
-  mount:
+- name: swap | Write swap entry in fstab
+  ansible.posix.mount:
     state: present
     src: /swapfile
     path: none
@@ -44,26 +44,21 @@
   tags:
     - swap
 
-- name: Mount swap if not mounted
-  command: swapon /swapfile
+- name: swap | Mount swap if not mounted
+  ansible.builtin.command: swapon /swapfile
   when: ansible_swaptotal_mb < 1
   tags:
     - swap
 
-- name: Set swappiness in /etc/sysctl.d
-  copy:
+- name: swap | Set swappiness in /etc/sysctl.d
+  ansible.builtin.copy:
     content: |
       vm.swappiness = 20
     dest: /etc/sysctl.d/60-swappiness.conf
     owner: root
     group: root
     mode: "0644"
-  register: swappiness
-  tags:
-    - swap
-
-- name: Load new swappiness settings if swappiness changed
-  command: sysctl -p /etc/sysctl.d/60-swappiness.conf
-  when: swappiness.changed
+  notify:
+    - Load swappiness settings
   tags:
     - swap
