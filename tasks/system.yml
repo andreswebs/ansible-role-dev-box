@@ -14,6 +14,7 @@
 - name: system | Install basic security packages
   ansible.builtin.apt:
     state: present
+    update_cache: true
     name:
       - ufw
       - unattended-upgrades
@@ -25,6 +26,7 @@
 - name: system | Install tools
   ansible.builtin.apt:
     state: present
+    update_cache: true
     name:
       - apt-transport-https
       - bash-completion
