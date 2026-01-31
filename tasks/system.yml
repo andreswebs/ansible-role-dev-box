@@ -33,6 +33,7 @@
       - ca-certificates
       - curl
       - dnsutils
+      - file
       - gh
       - git
       - gnupg
