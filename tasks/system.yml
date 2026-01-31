@@ -26,22 +26,35 @@
   ansible.builtin.apt:
     state: present
     name:
-      - rsync
-      - vim
-      - tmux
-      - htop
-      - curl
-      - git
-      - jq
-      - zip
-      - unzip
-      - python3
-      - python3-pip
-      - python3-virtualenv
-      - bash-completion
       - apt-transport-https
-      - gnupg2
+      - bash-completion
+      - bc
+      - bzip2
+      - ca-certificates
+      - curl
+      - dnsutils
+      - gh
+      - git
+      - gnupg
       - gnupg-agent
+      - htop
+      - jq
+      - less
+      - lsof
+      - man-db
+      - netcat-openbsd
+      - openssh-client
+      - procps
+      - psmisc
+      - ripgrep
+      - rsync
+      - socat
+      - sudo
+      - tree
+      - tmux
+      - unzip
+      - vim
+      - zip
   tags:
     - system
 

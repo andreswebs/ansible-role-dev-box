@@ -6,6 +6,10 @@ Installs a few tools and configures swap for a dev box
 
 None
 
-## license
+## Authors
 
-[Unlicense](UNLICENSE.md)
+**Andre Silva** - [@andreswebs](https://github.com/andreswebs)
+
+## License
+
+[Unlicense](UNLICENSE)
